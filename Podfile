@@ -6,7 +6,14 @@ target 'TDDExample' do
   use_frameworks!
 
   # Pods for TDDExample
+  pod 'SnapKit'
 
+  target 'TDDExampleTests' do
+    inherit! :search_paths
+    # Pods for testing
+    pod 'Quick'
+    pod 'Nimble'
+  end
 
   target 'TDDExampleUITests' do
     # Pods for testing
@@ -14,8 +21,3 @@ target 'TDDExample' do
 
 end
 
-target 'TDDExampleTests' do
-  # Pods for testing
-  pod 'Quick'
-  pod 'Nimble'
-end

@@ -1,20 +1,24 @@
 PODS:
   - Nimble (9.0.0)
   - Quick (3.1.2)
+  - SnapKit (5.0.1)
 
 DEPENDENCIES:
   - Nimble
   - Quick
+  - SnapKit
 
 SPEC REPOS:
   trunk:
     - Nimble
     - Quick
+    - SnapKit
 
 SPEC CHECKSUMS:
   Nimble: 3b4ec3fd40f1dc178058e0981107721c615643d8
   Quick: 60f0ea3b8e0cfc0df3259a5c06a238ad8b3c46e0
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
-PODFILE CHECKSUM: 928044769f557ca128dd78b41c706aab6ab217a1
+PODFILE CHECKSUM: 7813ac126fd466e97a7639662a46625593b2a988
 
 COCOAPODS: 1.10.1
