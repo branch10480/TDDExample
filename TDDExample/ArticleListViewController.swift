@@ -24,6 +24,7 @@ class ArticleListViewController: UIViewController {
             maker.left.equalToSuperview().offset(16)
             maker.right.equalToSuperview().inset(16)
         }
+        titleLabel.text = "記事タイトル"
     }
 
 }
