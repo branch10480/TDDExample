@@ -11,6 +11,17 @@ import SnapKit
 class ArticleListViewController: UIViewController {
 
     private(set) var titleLabel: UILabel!
+    private let apiClient: ArticleListAPIClientProtocol
+    
+    init(client: ArticleListAPIClientProtocol = ArticleListAPIClient()) {
+        self.apiClient = client
+
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +35,13 @@ class ArticleListViewController: UIViewController {
             maker.left.equalToSuperview().offset(16)
             maker.right.equalToSuperview().inset(16)
         }
-        titleLabel.text = "記事タイトル"
+        
+        apiClient.fetch { [weak self] articles in
+            guard let firstArticle = articles?.first else {
+                return
+            }
+            self?.titleLabel.text = firstArticle.title
+        }
     }
 
 }
