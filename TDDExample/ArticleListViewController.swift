@@ -31,7 +31,7 @@ class ArticleListViewController: UIViewController {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { maker in
-            maker.top.equalToSuperview()
+            maker.top.equalTo(self.view.safeAreaLayoutGuide).offset(8)
             maker.left.equalToSuperview().offset(16)
             maker.right.equalToSuperview().inset(16)
         }
