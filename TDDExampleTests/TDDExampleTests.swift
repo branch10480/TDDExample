@@ -13,13 +13,19 @@ import SafariServices
 
 class ArticleListSpec: QuickSpec {
     
+    private var articleListVC: ArticleListViewController!
+    
     override func spec() {
         
-        it("タイトルの一覧が表示されている") {
-            let vc = ArticleListViewController(client: ArticleListAPIClientStub([
+        beforeSuite {
+            self.articleListVC = ArticleListViewController(client: ArticleListAPIClientStub([
                 Article(title: "記事タイトル", url: "https://test")
             ]))
+        }
+        
+        it("タイトルの一覧が表示されている") {
             let window = UIWindow()
+            let vc: ArticleListViewController = self.articleListVC
             window.rootViewController = vc
             window.makeKeyAndVisible()
             sleep(1)
@@ -38,10 +44,8 @@ class ArticleListSpec: QuickSpec {
         }
         
         it("記事をタップして詳細画面が表示されること") {
-            let vc = ArticleListViewController(client: ArticleListAPIClientStub([
-                Article(title: "記事タイトル", url: "https://test")
-            ]))
             let window = UIWindow()
+            let vc: ArticleListViewController = self.articleListVC
             window.rootViewController = vc
             window.makeKeyAndVisible()
             sleep(1)
