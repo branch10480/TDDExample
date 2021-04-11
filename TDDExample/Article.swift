@@ -9,4 +9,5 @@ import Foundation
 
 struct Article: Codable {
     var title: String
+    var url: String
 }

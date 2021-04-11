@@ -17,7 +17,7 @@ class ArticleListSpec: QuickSpec {
         
         it("タイトルの一覧が表示されている") {
             let vc = ArticleListViewController(client: ArticleListAPIClientStub([
-                Article(title: "記事タイトル")
+                Article(title: "記事タイトル", url: "https://test")
             ]))
             let window = UIWindow()
             window.rootViewController = vc
@@ -39,7 +39,7 @@ class ArticleListSpec: QuickSpec {
         
         it("記事をタップして詳細画面が表示されること") {
             let vc = ArticleListViewController(client: ArticleListAPIClientStub([
-                Article(title: "記事タイトル")
+                Article(title: "記事タイトル", url: "https://test")
             ]))
             let window = UIWindow()
             window.rootViewController = vc

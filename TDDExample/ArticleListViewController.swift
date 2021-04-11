@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SafariServices
 
 class ArticleListViewController: UIViewController {
 
@@ -52,6 +53,7 @@ class ArticleListViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(.init(nibName: "ArticleListCell", bundle: nil), forCellReuseIdentifier: cellId)
         tableView.dataSource = self
+        tableView.delegate = self
         
         apiClient.fetch { [weak self] articles in
             self?.items = articles ?? []
@@ -79,5 +81,11 @@ extension ArticleListViewController: UITableViewDataSource {
 extension ArticleListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let item = items[indexPath.row]
+        guard let url = URL(string: item.url) else {
+            return
+        }
+        let vc = SFSafariViewController(url: url)
+        present(vc, animated: true, completion: nil)
     }
 }
