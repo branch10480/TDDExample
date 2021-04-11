@@ -54,10 +54,8 @@ class ArticleListViewController: UIViewController {
         tableView.dataSource = self
         
         apiClient.fetch { [weak self] articles in
-            guard let firstArticle = articles?.first else {
-                return
-            }
-            self?.titleLabel.text = firstArticle.title
+            self?.items = articles ?? []
+            self?.tableView.reloadData()
         }
     }
 
