@@ -10,8 +10,12 @@ import SnapKit
 
 class ArticleListViewController: UIViewController {
 
-    private(set) var titleLabel: UILabel!
+    private(set) var titleLabel: UILabel = UILabel()
+    private(set) var tableView: UITableView = UITableView()
+
     private let apiClient: ArticleListAPIClientProtocol
+    private let cellId = "cell"
+    private var items: [Article] = []
     
     init(client: ArticleListAPIClientProtocol = ArticleListAPIClient()) {
         self.apiClient = client
@@ -26,8 +30,7 @@ class ArticleListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        self.titleLabel = UILabel()
+
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { maker in
@@ -35,6 +38,20 @@ class ArticleListViewController: UIViewController {
             maker.left.equalToSuperview().offset(16)
             maker.right.equalToSuperview().inset(16)
         }
+        
+        // TableView.
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { maker in
+            maker.right.equalToSuperview()
+            maker.left.equalToSuperview()
+            maker.bottom.equalToSuperview()
+            maker.top.equalTo(self.view.safeAreaLayoutGuide)
+        }
+        tableView.estimatedRowHeight = 44
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(.init(nibName: "ArticleListCell", bundle: nil), forCellReuseIdentifier: cellId)
+        tableView.dataSource = self
         
         apiClient.fetch { [weak self] articles in
             guard let firstArticle = articles?.first else {
@@ -44,4 +61,18 @@ class ArticleListViewController: UIViewController {
         }
     }
 
+}
+
+// MARK: - UITableViewDataSource
+extension ArticleListViewController: UITableViewDataSource {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! ArticleListCell
+        cell.configure(items[indexPath.row].title)
+        return cell
+    }
 }
